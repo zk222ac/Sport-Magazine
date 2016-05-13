@@ -93,23 +93,28 @@ namespace SportzMagazine.ViewModels
             //ValidationString(cardholder);
             Regex regexstring= new Regex("^[a-zA-Z]+$");
             //Regex regexemail=new Regex(@"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$");
-            if (!regexstring.IsMatch(Name)|| !regexstring.IsMatch(cardholder))
+            if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Address) || string.IsNullOrEmpty(Email) ||
+                    string.IsNullOrEmpty(Phone) || string.IsNullOrEmpty(CardHolder) || string.IsNullOrEmpty(CardNo) ||
+                    Cvv == 0 || NumberOfCopies == 0)
+
+            {
+                CheckInput();
+            }
+            
+            else if (!regexstring.IsMatch(cardholder))
             {
                 CheckStringValidation();
-            }
 
+            }
             //else if (!regexemail.IsMatch(email))
             //{
             //    CheckEmailValidation();
             //}
-            else if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Address) || string.IsNullOrEmpty(Email) ||
-                    string.IsNullOrEmpty(Phone) || string.IsNullOrEmpty(CardHolder) || string.IsNullOrEmpty(CardNo) ||
-                    Cvv == 0 || NumberOfCopies == 0)
+            else if (!regexstring.IsMatch(Name))
+            {
+                CheckStringValidation();
+            }
 
-                {
-                    CheckInput();
-                }
-            
 
             else
             {
