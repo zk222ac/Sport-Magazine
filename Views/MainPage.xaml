@@ -1,0 +1,25 @@
+﻿<Page
+    x:Class="SportzMagazine.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SportzMagazine"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        
+        <StackPanel>
+        <StackPanel Orientation="Horizontal"  >
+                <Image   Width="200" Height="70"  Stretch="Fill" Source="ms-appx:///Assets/c.jpg" />
+            <Button Name="Back" Content="Back" Margin="5,0,10,0" Click="Back_OnClick" />
+            <Button Name="Home" Content="Home" Margin="0,0,10,0" Click="Home_OnClick"/>
+            <Button Name="Forward" Content="Forward" Click="Forward_OnClick"/>
+            </StackPanel>
+            <Frame Name="MainFram"  >
+        </Frame>
+        
+
+        </StackPanel>
+    </Grid>
+</Page>

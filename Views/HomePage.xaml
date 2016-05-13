@@ -1,0 +1,36 @@
+﻿<Page
+    x:Class="SportzMagazine.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SportzMagazine"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+       <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
+            <TextBlock Text="Subscription" FontSize="40" FontWeight="Bold" Margin="300,20,0,0" />
+            <TextBlock Text="Select the subscription that suits you best." FontSize="14"  Margin="300,70,0,0"/>
+            <StackPanel Orientation="Horizontal" Margin="300,100,0,0">
+                <Button Name="indv" Content="Indivitual" Background="Bisque" Width="150" Height="100" Margin="0,0,200,0" Click="Indv_OnClick" />
+                <Button Name="Corp" Content="Corporate" Background="LightSkyBlue" Width="150" Height="100" Click="Corp_OnClick"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="300,30,0,0">
+                <TextBlock Text ="bal bala bla" Margin="0,0,300,0"/>
+                <TextBlock Text="bla bla bla"/>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</Page>

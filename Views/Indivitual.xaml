@@ -1,0 +1,119 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SportzMagazine"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:SportzMagazine.ViewModels"
+    xmlns:models="using:SportzMagazine.Models"
+    x:Class="SportzMagazine.Indivitual"
+    mc:Ignorable="d">
+    <Page.DataContext>
+        <viewModels:SubcscriptionIndVM/>
+    </Page.DataContext>
+    <Page.Resources>
+        <models:DateConverter x:Key="DateConverter"/>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Individual Subscription" FontSize="30" FontWeight="Bold" Margin="100,0,0,20"/>
+        <Border Grid.Row="1" Grid.Column="0" Background="Bisque" BorderThickness="3" BorderBrush="Black" Margin="30,0,0,0">
+
+            <StackPanel Orientation="Vertical" Margin="20">
+                <TextBlock Text=" Personal Informtion" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Name" Margin="0,0,66,0"/>
+                    <TextBox Header="Full Name" MinWidth="220" Text="{Binding Name, Mode=TwoWay}"/>
+                    <TextBlock Text="{Binding InvalidINputString}"></TextBlock>
+                    
+                </StackPanel>
+               
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Address" Margin="0,0,52,0" />
+                    <TextBox MinWidth="220" Text="{Binding Address, Mode=TwoWay}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Phone" Margin="0,0,63,0" />
+                    <TextBox MinWidth="220" Text="{Binding Phone, Mode=TwoWay}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Email" Margin="0,0,70,0" />
+                    <TextBox MinWidth="220" Text="{Binding Email, Mode=TwoWay}" />
+                </StackPanel>
+                <TextBlock Text="Payment Information" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,20,0,0"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="CrediCard Number" Margin="0,0,46,0" />
+                    <TextBox MinWidth="150" Text="{Binding CardNo, Mode=TwoWay}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="CrediCard Holder" Margin="0,0,56,0" />
+                    <TextBox MinWidth="150" Text="{Binding CardHolder, Mode=TwoWay}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Exp. No" Margin="0,0,120,0" />
+                    <DatePicker  Date="{Binding ExpDate, Converter={StaticResource DateConverter}, Mode=TwoWay}" Height="33" Width="288" DayVisible="False"></DatePicker>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <TextBlock Text="CVV" Margin="0,0,143,0" />
+                    <TextBox MinWidth="150" Text="{Binding Cvv, Mode=TwoWay}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Subscription Duration" Margin="0,0,25,0"/>
+                    <ComboBox Width="150" SelectedValue="{Binding SubDuration, Mode=TwoWay}" ItemsSource="{Binding SubsAmounts}" SelectedItem="0" >
+                       
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <TextBlock Text="Number of Copies" Margin="0,0,49,0" />
+                    <TextBox MinWidth="150" Text="{Binding NumberOfCopies, Mode=TwoWay}" />
+                </StackPanel>
+                <Button Content="Make Subscription" HorizontalAlignment="Center" Command="{Binding makeSubscription}" />
+
+            </StackPanel>
+        </Border>
+
+        
+        <ListView  Background="Bisque" ItemsSource="{Binding List,Mode=OneWay}"  x:Name="listView" Grid.Row="1"  Grid.Column="1" Margin="30,0,0,0" >
+            
+            <ListView.ItemTemplate>
+                <DataTemplate >
+                        <StackPanel Orientation="Vertical" Margin="20">
+                            <TextBlock Text=" Check your information " FontWeight="Bold" HorizontalAlignment="Center"/>
+                            <StackPanel Orientation="Vertical">
+                            <TextBlock Name="name" Text="{Binding App1.Name}"/>
+
+                            <TextBlock Name="add" Text="{Binding App1.Address}"/>
+                            <TextBlock Name="ph" Text="{Binding App1.Phone}"/>
+                            <TextBlock Name="em" Text="{Binding App1.Email}"/>
+                                <TextBlock Text="Card Information: " Margin="0,5,0,5" FontWeight="Bold"/>
+                            <TextBlock Name="cardh" Text="{Binding App1.CardHolder}"/>
+                            <TextBlock Name="cardn" Text="{Binding App1.CardNo}"/>
+                            <TextBlock Name="ex" Text="{Binding App1.ExpDate}" />
+                            <TextBlock Name="cvv" Text="***"/>
+                            <TextBlock Text="Duration and Number of Copies:" FontWeight="Bold"/>
+                               <TextBlock Name="sub" Text ="{Binding SubDuration}"/>
+                               <TextBlock Name="nocpy" Text="{Binding NumberOfCopies}"/>
+                                </StackPanel>
+                         <StackPanel>
+                             <Button Content="Submit" Click="ButtonBase_OnClick"/>
+                         </StackPanel>
+                        </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </Grid>
+
+
+</Page>
