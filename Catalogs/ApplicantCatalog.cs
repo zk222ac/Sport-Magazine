@@ -13,7 +13,7 @@ namespace SportzMagazine.Catalogs
 
         // make a method to create induvidual Applicant
         public IndApplicant CreateIndApplicant(string n, string address, string email, string ph,  string cardH,
-            string cardNo, DateTime expDate, int cvv)
+            string cardNo, DateTime expDate, int cvv, string password)
         {
             appList = new List<Applicant>();
             IndApplicant app1 = new IndApplicant
@@ -25,7 +25,8 @@ namespace SportzMagazine.Catalogs
                 CardHolder = cardH,
                 CardNo = cardNo,
                 ExpDate = expDate,
-                Cvv = cvv
+                Cvv = cvv,
+                Password=password
             };
 
             // the list add the aplicant to intself
@@ -35,7 +36,7 @@ namespace SportzMagazine.Catalogs
 
         //  make a method to create corporate Applicant
         public CorporApplicant CreateCorpApplicant(string n, string address, string email, string ph,  string title,
-            string mailStop, string companyDep)
+            string mailStop, string companyDep, string password)
         {
             appList = new List<Applicant>();
             CorporApplicant app2 = new CorporApplicant
@@ -46,7 +47,8 @@ namespace SportzMagazine.Catalogs
                 Phone = ph,
                 Title = title,
                 MailStop = mailStop,
-                CompanyDepartment = companyDep
+                CompanyDepartment = companyDep,
+                Password=password
             };
             return app2;
         }

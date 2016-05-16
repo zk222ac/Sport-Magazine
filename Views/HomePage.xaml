@@ -7,30 +7,97 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid >
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black" Offset="0"/>
+                <GradientStop Color="#FF4C7922" Offset="0.765"/>
+                <GradientStop Color="#FF20241B"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        
         <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
+            <RowDefinition Height="100"/>
 
-       <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
-            <TextBlock Text="Subscription" FontSize="40" FontWeight="Bold" Margin="300,20,0,0" />
-            <TextBlock Text="Select the subscription that suits you best." FontSize="14"  Margin="300,70,0,0"/>
-            <StackPanel Orientation="Horizontal" Margin="300,100,0,0">
-                <Button Name="indv" Content="Indivitual" Background="Bisque" Width="150" Height="100" Margin="0,0,200,0" Click="Indv_OnClick" />
-                <Button Name="Corp" Content="Corporate" Background="LightSkyBlue" Width="150" Height="100" Click="Corp_OnClick"/>
+        </Grid.RowDefinitions>
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>-->
+        <RelativePanel MaxHeight="100" Name="p1">
+            <Image Name="name" Stretch="Fill" Source="ms-appx:///Assets/namelogo.jpg" Width="600" />
+            <HyperlinkButton Name="ad" RelativePanel.RightOf="name" MinWidth="500" MinHeight="100"
+                             NavigateUri="http://www.momondo.dk">
+                <HyperlinkButton.Background>
+                    <ImageBrush Stretch="Fill" ImageSource="ms-appx:///Assets/Add.jpg"/>
+                </HyperlinkButton.Background>
+            </HyperlinkButton>
+            <HyperlinkButton Margin="20,0,0,0" MinWidth="100" MinHeight="100" NavigateUri="http://www.watcholympics2016live.com/" RelativePanel.RightOf="ad">
+                <HyperlinkButton.Background>
+                    <ImageBrush Stretch="Fill" ImageSource="ms-appx:///Assets/riowatch.jpg"/>
+                </HyperlinkButton.Background>
+            </HyperlinkButton>
+        </RelativePanel>
+        <ScrollViewer HorizontalScrollBarVisibility="Visible" HorizontalScrollMode="Enabled" Grid.Row="1" Margin="0,20,0,0" IsHitTestVisible="True" Background="DarkGray" Visibility="Visible">
+            <StackPanel Orientation="Horizontal">
+                
+                <HyperlinkButton MinWidth="400" MinHeight="150" NavigateUri="http://www.rio2016.com">
+                    <HyperlinkButton.Background>
+                        <ImageBrush Stretch="Fill" ImageSource="ms-appx:///Assets/rio.jpg"/>
+                    </HyperlinkButton.Background>
+                </HyperlinkButton>
+
+                <HyperlinkButton MinWidth="400" MinHeight="150" NavigateUri="http://www.motorsportmagazine.com/previews/f1/2016-spanish-grand-prix">
+                    <HyperlinkButton.Background>
+                        <ImageBrush Stretch="Fill" ImageSource="ms-appx:///Assets/car.jpg"/>
+                    </HyperlinkButton.Background>
+                </HyperlinkButton>
+
+                <HyperlinkButton MinWidth="300" MinHeight="150" NavigateUri="http://www.bbc.com/sport/football/36250300">
+                    <HyperlinkButton.Background>
+                        <ImageBrush Stretch="Fill" ImageSource="ms-appx:///Assets/football.jpg"/>
+                    </HyperlinkButton.Background>
+                </HyperlinkButton>
+
+                <HyperlinkButton MinWidth="300" MinHeight="150" NavigateUri="http://www.bbc.com/sport/tennis/36288487">
+                    <HyperlinkButton.Background>
+                        <ImageBrush Stretch="Fill" ImageSource="ms-appx:///Assets/tennis.jpg"/>
+                    </HyperlinkButton.Background>
+                </HyperlinkButton>
+
+                <HyperlinkButton MinWidth="300" MinHeight="150" NavigateUri="http://www.dr.dk/sporten/oevrig/sportsdagen-la-hora-de-verdad-hvem-bliver-spansk-mester">
+                    <HyperlinkButton.Background>
+                        <ImageBrush Stretch="Fill" ImageSource="ms-appx:///Assets/football2.jpg"/>
+                    </HyperlinkButton.Background>
+                </HyperlinkButton>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="300,30,0,0">
-                <TextBlock Text ="bal bala bla" Margin="0,0,300,0"/>
-                <TextBlock Text="bla bla bla"/>
+        </ScrollViewer>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" >
+        <StackPanel Margin="10,20,0,20" Background="LightGray" Width="609" HorizontalAlignment="Left">
+            <TextBlock Margin="10,10,0,10" Text="Subscribe to Sportz Magazine" FontSize="20" FontWeight="Bold" FontFamily="Script MT Bold"/>
+            <TextBlock FontWeight="SemiBold" TextWrapping="WrapWholeWords" Text="Please select one of the following subscription offerings to gain access to Sportz Magazine." HorizontalAlignment="Center"/>
+            <TextBlock Margin="10,10,10,0" Text="Sportz magazine is a published quarterly. Each issue has a summary of the sports news for the preceding quarter, commentaries by well-known and respected sports writers, interviews with athletes, health and nutrition information provided by sports physicians, and reviews of the latest athletic products from wardrobes to equipment." TextWrapping="WrapWholeWords" TextAlignment="Justify"/>
+            
+            <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical" Margin="20,40,0,10">
+                <TextBlock Text="New to Sportz Magazine?" FontWeight="Bold"/>
+                <Button Background="DarkGoldenrod" Content="Click Here to Subscribe" Click="ButtonBase_OnClick" />
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="100,40,0,10">
+                <TextBlock Text="Already have a subscription?" FontWeight="Bold"/>
+                <Button Background="DarkGoldenrod" Content="Click Here to renew Subscription" Click="ButtonBase1_OnClick" />
+            </StackPanel>
             </StackPanel>
         </StackPanel>
+
+            <Image Margin="100,20,20,20" Width="300" Height="309" Source="ms-appx:///Assets/magazine.png" Stretch="Fill"/>
+        </StackPanel>
+
+
 
     </Grid>
 </Page>

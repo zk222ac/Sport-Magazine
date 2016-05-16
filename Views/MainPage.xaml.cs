@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using SportzMagazine.Views;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -28,14 +29,18 @@ namespace SportzMagazine
             MainFram.Navigate(typeof (HomePage));
         }
 
-        private void Back_OnClick(object sender, RoutedEventArgs e)
+      
+
+        private void Home_OnClick(object sender, RoutedEventArgs e)
         {
-            if (MainFram.CanGoBack)
-            {
-                MainFram.GoBack();
-            }        }
+            MainFram.Navigate(typeof(HomePage));
+        }
 
        
+
+
+
+        
 
         private void Forward_OnClick(object sender, RoutedEventArgs e)
         {
@@ -45,10 +50,27 @@ namespace SportzMagazine
             }
         }
 
-
-        private void Home_OnClick(object sender, RoutedEventArgs e)
+        private void Back_OnClick(object sender, RoutedEventArgs e)
         {
-            MainFram.Navigate(typeof(HomePage));
+            if (MainFram.CanGoBack)
+            {
+                MainFram.GoBack();
+            }
+        }
+
+        private void Subcribe_OnClick(object sender, RoutedEventArgs e)
+        {
+            MainFram.Navigate(typeof(SubscriptionPag));
+        }
+
+        private void Login_OnClick(object sender, RoutedEventArgs e)
+        {
+            MainFram.Navigate(typeof (LogIn));
+        }
+
+        private void Renew_OnClick(object sender, RoutedEventArgs e)
+        {
+            MainFram.Navigate(typeof (LogIn));
         }
     }
 }

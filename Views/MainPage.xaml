@@ -8,18 +8,57 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        
-        <StackPanel>
-        <StackPanel Orientation="Horizontal"  >
-                <Image   Width="200" Height="70"  Stretch="Fill" Source="ms-appx:///Assets/c.jpg" />
-            <Button Name="Back" Content="Back" Margin="5,0,10,0" Click="Back_OnClick" />
-            <Button Name="Home" Content="Home" Margin="0,0,10,0" Click="Home_OnClick"/>
-            <Button Name="Forward" Content="Forward" Click="Forward_OnClick"/>
-            </StackPanel>
-            <Frame Name="MainFram"  >
-        </Frame>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
 
+       
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+                <Border BorderThickness="1" BorderBrush="DarkOliveGreen">
+                <Image Width="117" Height="46" Stretch="Fill" HorizontalAlignment="Left" Source="ms-appx:///Assets/f.jpg"/>
+                </Border>
+
+            <CommandBar Width="1162" IsOpen="False" Visibility="Visible" Background="DarkOliveGreen">
+                    <AppBarButton Name="Login" Content ="Log in" Click="Login_OnClick" />
+                    <AppBarSeparator/>
+                    <AppBarButton Name ="subcribe" Content="Subscribe" Click="Subcribe_OnClick"/>
+                    <AppBarSeparator/>
+                    <AppBarButton Content="Renew Subscription" Width="160" Click="Renew_OnClick"/>
+                    <CommandBar.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <AppBarButton  Name ="home" Content="Home"  Click="Home_OnClick"/>
+                            <AppBarSeparator/>
+                            <AppBarButton Name="news" Content="News"/>
+                            <AppBarSeparator/>
+                            <AppBarButton Name="contactus" Content="Photo Gallery" Width="100"/>
+                        </StackPanel>
+                    </CommandBar.Content>
+                </CommandBar>
         </StackPanel>
+
+            <Frame Name="MainFram" Grid.Row="1">
+            </Frame>
+
+            <CommandBar VerticalAlignment="Bottom" Background="DarkGray" Grid.Row="2">
+                <AppBarButton Name="Forward" FontFamily="Segoe MDL2 Assets" Content="&#xE970;" Click="Forward_OnClick"/>
+               
+                <CommandBar.Content >
+                    <StackPanel Orientation="Horizontal">
+                        <AppBarButton Name="Back" FontFamily="Segoe MDL2 Assets" Content="&#xE96F;"  Click="Back_OnClick" />
+                        <AppBarButton Content="Advertise"/>
+                        <AppBarSeparator/>
+                        <AppBarButton Content="Contact Us" Width="80"/>
+                        <AppBarSeparator/>
+                        <AppBarButton Content="Privacy policy"/>
+                        <AppBarSeparator/>
+                        <AppBarButton Content="FAQs"/>
+                    </StackPanel>
+                </CommandBar.Content>
+                
+            </CommandBar>
+
     </Grid>
 </Page>

@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using SportzMagazine.Catalogs;
 using SportzMagazine.Models;
+using SportzMagazine.Persistency;
 
 namespace SportzMagazine.ViewModels
 {
     class SubscriptionCorpVM : ViewModelBase
     {
+        private Facade facade;
+
         public string Name { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
@@ -20,6 +23,8 @@ namespace SportzMagazine.ViewModels
         public string MailStop { get; set; }
         public string CompanyDepartment { get; set; }
         public int NumberOfCopies { get; set; }
+        public string Password { get; set; }
+
         public SubDuration SubDuration { get; set; }
 
         public IList<SubDuration> SubsAmounts
@@ -41,12 +46,14 @@ namespace SportzMagazine.ViewModels
                 OnPropertyChanged("List");
             }
         }
+        public CorporApplicant App2 { get; set; }
 
         private SubscriptionCatalog sublist;
         public RelayCommand makeSubscriptioncorp { get; set; }
 
         public SubscriptionCorpVM()
-        {
+        { 
+            App2=new CorporApplicant();
             subcatalog = new SubscriptionCatalog();
             appcatalog = new ApplicantCatalog();
             makeSubscriptioncorp = new RelayCommand(MakeNewSubscription);
@@ -64,19 +71,21 @@ namespace SportzMagazine.ViewModels
             string mstop = MailStop;
             string cd = CompanyDepartment;
             int nocopy = NumberOfCopies;
+            string password = Password;
             SubDuration subdur = SubDuration;
 
             if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Address) || string.IsNullOrEmpty(Email) ||
                 string.IsNullOrEmpty(Phone) || string.IsNullOrEmpty(Title) || string.IsNullOrEmpty(MailStop) ||
-                string.IsNullOrEmpty(CompanyDepartment) || NumberOfCopies == 0)
+                string.IsNullOrEmpty(CompanyDepartment) || NumberOfCopies == 0||string.IsNullOrEmpty(Password))
             {
                 CheckInput();
             }
             else
             {
-                CorporApplicant app = appcatalog.CreateCorpApplicant(name, add, email, phone, title, mstop, cd);
-                Models.Subscription sub = subcatalog.CreatCorporateSubs(app, nocopy, subdur);
+                App2= appcatalog.CreateCorpApplicant(name, add, email, phone, title, mstop, cd,password);
+                Models.Subscription sub = subcatalog.CreatCorporateSubs(App2, nocopy, subdur);
                 List.Add(sub);
+                facade.SaveSubscriptionAsXaml(List);
 
             }
         }

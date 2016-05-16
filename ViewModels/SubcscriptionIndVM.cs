@@ -10,13 +10,14 @@ using Windows.Devices.HumanInterfaceDevice;
 using Windows.UI.Popups;
 using SportzMagazine.Catalogs;
 using SportzMagazine.Models;
+using SportzMagazine.Persistency;
 
 namespace SportzMagazine.ViewModels
 {
     public class SubcscriptionIndVM:ViewModelBase
     {
-        
 
+        private Facade facade;
         private DateTime _expDate;
         public string Name { get; set; }
         public string Address { get; set; }
@@ -46,21 +47,22 @@ namespace SportzMagazine.ViewModels
         {
             get { return Enum.GetValues(typeof(SubDuration)).Cast<SubDuration>().ToList(); }
 
-
-
         }
         public int Cvv { get; set; }
+        public string Password { get; set; }
+        public IndApplicant App1 { get; set; }
+
         private SubscriptionCatalog subcatalog;
         private ApplicantCatalog appcatalog;
-        private ObservableCollection<Models.Subscription> list;
+        private ObservableCollection<Models.Subscription> listInd;
 
-        public ObservableCollection<Models.Subscription> List
+        public ObservableCollection<Models.Subscription> ListInd
         {
             get
             {
-                return list;
+                return listInd;
             }
-            set { list = value; OnPropertyChanged(); }
+            set { listInd = value; OnPropertyChanged("ListInd"); }
         }
 
         private SubscriptionCatalog sublist;
@@ -68,10 +70,11 @@ namespace SportzMagazine.ViewModels
 
         public SubcscriptionIndVM()
         {
+            App1=new IndApplicant();
             subcatalog=new SubscriptionCatalog();
             appcatalog=new ApplicantCatalog();
             makeSubscription =new RelayCommand(MakeNewSubscription);
-            List=new ObservableCollection<Models.Subscription>();
+            ListInd=new ObservableCollection<Models.Subscription>();
 
         }
 
@@ -88,13 +91,14 @@ namespace SportzMagazine.ViewModels
                 DateTime expdate = ExpDate;
                 int cvv = Cvv;
                 int nocopy = NumberOfCopies;
+                string password = Password;
                 SubDuration subdur = SubDuration;
             //ValidationString(Name);
             //ValidationString(cardholder);
             Regex regexstring= new Regex("^[a-zA-Z]+$");
             //Regex regexemail=new Regex(@"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$");
-            if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Address) || string.IsNullOrEmpty(Email) ||
-                    string.IsNullOrEmpty(Phone) || string.IsNullOrEmpty(CardHolder) || string.IsNullOrEmpty(CardNo) ||
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(add) || string.IsNullOrEmpty(email) ||
+                    string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(cardholder) || string.IsNullOrEmpty(cardno) || string.IsNullOrEmpty(password) ||
                     Cvv == 0 || NumberOfCopies == 0)
 
             {
@@ -118,10 +122,11 @@ namespace SportzMagazine.ViewModels
 
             else
             {
-                IndApplicant appind = appcatalog.CreateIndApplicant(name, add, email, phone, cardholder, cardno, expdate,
-                    cvv);
-                Models.Subscription sub = subcatalog.CreatIndividualSubs(appind, nocopy, subdur);
-                List.Add(sub);
+                App1 = appcatalog.CreateIndApplicant(name, add, email, phone, cardholder, cardno, expdate,
+                    cvv,password);
+               Models.Subscription subscription = subcatalog.CreatIndividualSubs(App1, nocopy, subdur);
+                ListInd.Add(subscription);
+                facade.SaveSubscriptionAsXaml(ListInd);
             }
 
         }
@@ -141,14 +146,7 @@ namespace SportzMagazine.ViewModels
             messageDialog.DefaultCommandIndex = 1;
             UICommand result = await messageDialog.ShowAsync() as UICommand;
             }
-        public async void CheckEmailValidation()
-        {
-            MessageDialog messageDialog = new MessageDialog("Invalid Email address!");
-            messageDialog.Commands.Add(new UICommand("Ok"));
-            messageDialog.DefaultCommandIndex = 1;
-            UICommand result = await messageDialog.ShowAsync() as UICommand;
-
-        }
+       
 
     }
 

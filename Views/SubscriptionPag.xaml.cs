@@ -12,32 +12,33 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using SportzMagazine.Views;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace SportzMagazine
+namespace SportzMagazine.Views
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class HomePage : Page
+    public sealed partial class SubscriptionPag : Page
     {
-        public HomePage()
+        public SubscriptionPag()
         {
             this.InitializeComponent();
         }
 
-
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void Indv_OnClick(object sender, RoutedEventArgs e)
         {
-
-            Frame.Navigate(typeof (SubscriptionPag));
+            Frame.Navigate(typeof(Indivitual));
         }
 
-        private void ButtonBase1_OnClick(object sender, RoutedEventArgs e)
+        private void Corp_OnClick(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof (LogIn));
+            Frame.Navigate(typeof(Corporate));
         }
+
+
+        
+
     }
 }
