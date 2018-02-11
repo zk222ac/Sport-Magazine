@@ -42,9 +42,12 @@
             <Frame Name="MainFram" Grid.Row="1">
             </Frame>
 
-            <CommandBar VerticalAlignment="Bottom" Background="DarkGray" Grid.Row="2">
-                <AppBarButton Name="Forward" FontFamily="Segoe MDL2 Assets" Content="&#xE970;" Click="Forward_OnClick"/>
-               
+            <CommandBar Grid.Row="2" VerticalAlignment="Bottom" Background="DarkGray">
+                <AppBarToggleButton Name="admin" Content="Admin" Click="Admin_OnClick" />
+            <AppBarSeparator/>
+
+            <AppBarButton Name="Forward" FontFamily="Segoe MDL2 Assets" Content="&#xE970;" Click="Forward_OnClick"/>
+                
                 <CommandBar.Content >
                     <StackPanel Orientation="Horizontal">
                         <AppBarButton Name="Back" FontFamily="Segoe MDL2 Assets" Content="&#xE96F;"  Click="Back_OnClick" />
@@ -57,8 +60,9 @@
                         <AppBarButton Content="FAQs"/>
                     </StackPanel>
                 </CommandBar.Content>
-                
-            </CommandBar>
 
+            </CommandBar>
+     
+            
     </Grid>
 </Page>

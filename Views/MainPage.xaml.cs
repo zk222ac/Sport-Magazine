@@ -72,5 +72,10 @@ namespace SportzMagazine
         {
             MainFram.Navigate(typeof (LogIn));
         }
+
+        private void Admin_OnClick(object sender, RoutedEventArgs e)
+        {
+            MainFram.Navigate(typeof (Admin));
+        }
     }
 }

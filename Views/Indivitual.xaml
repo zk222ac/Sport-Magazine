@@ -88,7 +88,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                     <TextBlock Text="Password" Margin="0,0,109,0" />
-                    <TextBox MinWidth="150" Text="{Binding Password, Mode=TwoWay}" />
+                    <PasswordBox MinWidth="150" Password="{Binding Password, Mode=TwoWay}" />
                 </StackPanel>
                 <Button Content="Make Subscription" HorizontalAlignment="Center" Command="{Binding makeSubscription}" />
 
@@ -118,7 +118,7 @@
                                 </StackPanel>
                          <StackPanel>
                              <Button Content="Submit" Click="ButtonBase_OnClick"/>
-                         </StackPanel>
+                            </StackPanel>
                         </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

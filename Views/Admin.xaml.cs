@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -12,31 +13,27 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using SportzMagazine.Views;
+using SportzMagazine.Models;
+using SportzMagazine.ViewModels;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace SportzMagazine
+namespace SportzMagazine.Views
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class HomePage : Page
+    public sealed partial class Admin : Page
     {
-        public HomePage()
+        public Admin()
         {
             this.InitializeComponent();
         }
 
+        //protected override void OnNavigatedTo(NavigationEventArgs e)
+        //{
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-             Frame.Navigate(typeof (SubscriptionPag));
-        }
 
-        private void ButtonBase1_OnClick(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof (LogIn));
-        }
+        //}
     }
 }

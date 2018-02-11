@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace SportzMagazine.Models
 {
-   public class Subscription    
+  
+    public class Subscription    
    {
 
        public IndApplicant App1 { get; set; }
@@ -17,10 +18,16 @@ namespace SportzMagazine.Models
         public SubDuration SubDuration { get; set; }
 
 
-
+       //public Subscription(string email, string password)
+       //{
+       //    App1.Email = email;
+       //    App2.Email = email;
+       //}
      
 
 
 
     }
+
+   
 }

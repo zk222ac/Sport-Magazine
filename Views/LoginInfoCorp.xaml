@@ -1,0 +1,44 @@
+﻿<Page
+    x:Class="SportzMagazine.Views.LoginInfoCorp"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SportzMagazine.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:SportzMagazine.ViewModels"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel Orientation="Vertical" Margin="20">
+            <StackPanel Background="DimGray" BorderBrush="Black">
+                <TextBlock Text="USER INFORMATION" TextAlignment="Center" FontWeight="Bold" HorizontalAlignment="Center" Width="165" Height="22" Margin="0,0,0,0"  />
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="0,30,0,0" >
+                <StackPanel>
+                    <TextBlock Text="Name" />
+                    <TextBlock MinWidth="100" Name ="name"/>
+                </StackPanel>
+                <TextBlock Text="Address" Margin="0,0,109,0"/>
+                <TextBlock MinWidth="150" Name="address"/>
+                <TextBlock Text="Email" Margin="0,0,109,0"/>
+                <TextBlock MinWidth="150" Name="email"/>
+                <TextBlock Text="Phone" Margin="0,0,109,0"/>
+                <TextBlock MinWidth="150" Name="phone"/>
+                <TextBlock Text="Number of Copies" Margin="0,0,109,0"/>
+                <TextBlock MinWidth="150" Name="noOfCopies"/>
+                <TextBlock Text="Subscription Duration" Margin="0,0,109,0"/>
+                <TextBlock MinWidth="150" Name="subsDuration"/>
+                <StackPanel Grid.Column="1" Margin="150">
+                    <StackPanel.DataContext>
+                        <viewModels:RenewVM/>
+                    </StackPanel.DataContext>
+
+                    <TextBox Header="Number Of Copies" Text="{Binding NoOfCopies, Mode=TwoWay}"/>
+                    <ComboBox Header="Subscription Duration" ItemsSource="{Binding SubsAmounts}" SelectedValue="{Binding SubsDuration, Mode=TwoWay}"/>
+                    <Button Content="Renew Subscription" HorizontalAlignment="Right" Command="{Binding RenewCorporateSubscription}" Click="ButtonBase_OnClick"/>
+
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -17,7 +17,7 @@
         </Grid.Background>
 
         <StackPanel>
-        <Border Margin="440,50,440,0" BorderBrush="Blue" BorderThickness="7" Width="400" Height="70">
+        <Border Margin="440,50,440,0" BorderBrush="MintCream" BorderThickness="7" Width="400" Height="70">
             <TextBlock Text="CONGRATULATION!" Foreground="LightGray" TextAlignment="Center" TextWrapping="Wrap" FontSize="30" FontWeight="Bold" Margin="10,0,0,20"/>
 
         </Border>

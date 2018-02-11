@@ -16,8 +16,9 @@ namespace SportzMagazine
 
             // Delegate for method that determines if cmd is enabled/disabled
             private readonly Predicate<object> _targetCanExecuteMethod;
+        private Action doLogIn;
 
-            public bool CanExecute(object parameter)
+        public bool CanExecute(object parameter)
             {
                 return _targetCanExecuteMethod == null || _targetCanExecuteMethod(parameter);
             }
@@ -34,7 +35,12 @@ namespace SportzMagazine
                 _targetCanExecuteMethod = canExecuteMethod;
             }
 
-            public void RaiseCanExecuteChanged()
+        public RelayCommand(Action doLogIn)
+        {
+            this.doLogIn = doLogIn;
+        }
+
+        public void RaiseCanExecuteChanged()
             {
                 if (CanExecuteChanged != null) CanExecuteChanged(this, EventArgs.Empty);
             }

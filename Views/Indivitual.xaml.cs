@@ -30,6 +30,8 @@ namespace SportzMagazine
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof (SubmitionMessage));
+
+            
         }
     }
 }

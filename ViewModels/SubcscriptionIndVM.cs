@@ -14,10 +14,11 @@ using SportzMagazine.Persistency;
 
 namespace SportzMagazine.ViewModels
 {
-    public class SubcscriptionIndVM:ViewModelBase
+    public class SubcscriptionIndVM : ViewModelBase
     {
 
-        private Facade facade;
+       
+        private ObjectClean clean;
         private DateTime _expDate;
         public string Name { get; set; }
         public string Address { get; set; }
@@ -28,10 +29,7 @@ namespace SportzMagazine.ViewModels
 
         public DateTime ExpDate
         {
-            get
-            {
-                return _expDate;
-            }
+            get { return _expDate; }
             set
             {
                 _expDate = value;
@@ -45,92 +43,123 @@ namespace SportzMagazine.ViewModels
         //Get enum values, convert them into a list. You can see the binding on the UI :)
         public IList<SubDuration> SubsAmounts
         {
-            get { return Enum.GetValues(typeof(SubDuration)).Cast<SubDuration>().ToList(); }
+            get { return Enum.GetValues(typeof (SubDuration)).Cast<SubDuration>().ToList(); }
 
         }
+
         public int Cvv { get; set; }
         public string Password { get; set; }
         public IndApplicant App1 { get; set; }
 
         private SubscriptionCatalog subcatalog;
         private ApplicantCatalog appcatalog;
-        private ObservableCollection<Models.Subscription> listInd;
+        private ObservableCollection<Subscription> listInd;
 
-        public ObservableCollection<Models.Subscription> ListInd
+        public ObservableCollection<Subscription> ListInd
         {
-            get
+            get { return listInd; }
+            set
             {
-                return listInd;
+                listInd = value;
+                OnPropertyChanged("ListInd");
             }
-            set { listInd = value; OnPropertyChanged("ListInd"); }
         }
 
-        private SubscriptionCatalog sublist;
         public RelayCommand makeSubscription { get; set; }
 
         public SubcscriptionIndVM()
         {
-            App1=new IndApplicant();
-            subcatalog=new SubscriptionCatalog();
-            appcatalog=new ApplicantCatalog();
-            makeSubscription =new RelayCommand(MakeNewSubscription);
-            ListInd=new ObservableCollection<Models.Subscription>();
+            App1 = new IndApplicant();
+            subcatalog = new SubscriptionCatalog();
+            appcatalog = new ApplicantCatalog();
+            makeSubscription = new RelayCommand(MakeNewSubscription);
+            ListInd = new ObservableCollection<Subscription>();
+            clean = new ObjectClean();
 
+            // load default data which is avaliable in the file
+            //LoadDafaultData();
         }
 
-        private void MakeNewSubscription(object obj)
+        public async void MakeNewSubscription(object obj)
         {
+            
+
+            string name = Name;
+            string add = Address;
+            string email = Email;
+            string phone = Phone;
+            string cardholder = CardHolder;
+            string cardno = CardNo;
+            DateTime expdate = ExpDate;
+            int cvv = Cvv;
+            int nocopy = NumberOfCopies;
+            string password = Password;
+            SubDuration subdur = SubDuration;
 
             
-                string name = Name;
-                string add = Address;
-                string email = Email;
-                string phone = Phone;
-                string cardholder = CardHolder;
-                string cardno = CardNo;
-                DateTime expdate = ExpDate;
-                int cvv = Cvv;
-                int nocopy = NumberOfCopies;
-                string password = Password;
-                SubDuration subdur = SubDuration;
-            //ValidationString(Name);
-            //ValidationString(cardholder);
-            Regex regexstring= new Regex("^[a-zA-Z]+$");
-            //Regex regexemail=new Regex(@"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$");
+            Regex regexstring = new Regex("^[a-zA-Z]+$");
+            Regex regexEmail = new Regex(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
+                                         @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
+                                         @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
+
+            Regex regexphone = new Regex("^[0-9]+$");
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(add) || string.IsNullOrEmpty(email) ||
-                    string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(cardholder) || string.IsNullOrEmpty(cardno) || string.IsNullOrEmpty(password) ||
-                    Cvv == 0 || NumberOfCopies == 0)
+                string.IsNullOrEmpty(phone) || string.IsNullOrEmpty(cardholder) || string.IsNullOrEmpty(cardno) ||
+                string.IsNullOrEmpty(password) ||
+                Cvv == 0 || NumberOfCopies == 0)
 
             {
                 CheckInput();
             }
-            
+
+            else if (!regexstring.IsMatch(name))
+            {
+                CheckStringValidation();
+
+            }
             else if (!regexstring.IsMatch(cardholder))
             {
                 CheckStringValidation();
-
             }
-            //else if (!regexemail.IsMatch(email))
+            else if (!regexEmail.IsMatch(email))
+            {
+                CheckEmailValidation();
+            }
+
+            //else if (!regexphone.IsMatch(phone))
             //{
-            //    CheckEmailValidation();
+            //    CheckPhoneValidation();
             //}
-            else if (!regexstring.IsMatch(Name))
-            {
-                CheckStringValidation();
-            }
 
 
-            else
-            {
-                App1 = appcatalog.CreateIndApplicant(name, add, email, phone, cardholder, cardno, expdate,
-                    cvv,password);
-               Models.Subscription subscription = subcatalog.CreatIndividualSubs(App1, nocopy, subdur);
-                ListInd.Add(subscription);
-                facade.SaveSubscriptionAsXaml(ListInd);
-            }
+            App1 = appcatalog.CreateIndApplicant(name, add, email, phone, cardholder, cardno, expdate,
+                cvv, password);
+
+            Subscription subscription = subcatalog.CreatIndividualSubs(App1, nocopy, subdur);
+
+            ListInd.Add(subscription);
+            clean.SaveIndividual(ListInd);
+
+            //LoadDafaultData();
 
         }
 
+        public async void LoadDafaultData()
+        {
+            try
+            {
+                ObservableCollection<Subscription> subscriptions = await clean.LoadIndividual();
+                this.ListInd = subscriptions;
+            }
+            catch (Exception exception)
+            {
+               listInd.Clear();
+                
+            }
+            
+        }
+
+       
         public async void CheckInput()
         {
             MessageDialog messageDialog = new MessageDialog("All filds must be filled!");
@@ -139,27 +168,36 @@ namespace SportzMagazine.ViewModels
             UICommand result = await messageDialog.ShowAsync() as UICommand;
 
         }
+
+
+
         public async void CheckStringValidation()
         {
             MessageDialog messageDialog = new MessageDialog("Invalid Name Or CardHolder Name!");
             messageDialog.Commands.Add(new UICommand("Ok"));
             messageDialog.DefaultCommandIndex = 1;
             UICommand result = await messageDialog.ShowAsync() as UICommand;
-            }
+        }
+
+        public async void CheckEmailValidation()
+        {
+            MessageDialog messageDialog = new MessageDialog("Invalid Email!");
+            messageDialog.Commands.Add(new UICommand("Ok"));
+            messageDialog.DefaultCommandIndex = 1;
+            UICommand result = await messageDialog.ShowAsync() as UICommand;
+        }
+
+        public async void CheckPhoneValidation()
+        {
+            MessageDialog messageDialog = new MessageDialog("INVALID PHONE NUMBER!");
+            messageDialog.Commands.Add(new UICommand("Ok"));
+            messageDialog.DefaultCommandIndex = 1;
+            UICommand result = await messageDialog.ShowAsync() as UICommand;
+
+        }
+
        
 
     }
-
-       
-
-        //public static void ValidationString(string input)
-        //{
-        //    Regex regex = new Regex("^[a-zA-Z]+$");
-
-        //    if (!regex.IsMatch(input))
-        //    {
-        //        throw new InvalidINputString(input);
-        //    }
-        //}
-    }
+}
 

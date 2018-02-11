@@ -11,9 +11,9 @@ using SportzMagazine.Persistency;
 
 namespace SportzMagazine.ViewModels
 {
-    class SubscriptionCorpVM : ViewModelBase
+    public class SubscriptionCorpVM : ViewModelBase
     {
-        private Facade facade;
+        private ObjectClean clean;
 
         public string Name { get; set; }
         public string Address { get; set; }
@@ -35,7 +35,7 @@ namespace SportzMagazine.ViewModels
 
         private SubscriptionCatalog subcatalog;
         private ApplicantCatalog appcatalog;
-        private ObservableCollection<Models.Subscription> list;
+        private ObservableCollection<Subscription> list;
 
         public ObservableCollection<Models.Subscription> List
         {
@@ -57,8 +57,9 @@ namespace SportzMagazine.ViewModels
             subcatalog = new SubscriptionCatalog();
             appcatalog = new ApplicantCatalog();
             makeSubscriptioncorp = new RelayCommand(MakeNewSubscription);
-            List = new ObservableCollection<Models.Subscription>();
-
+            clean = new ObjectClean();
+            List = new ObservableCollection<Subscription>();
+            LoadDafaultData();
         }
 
         private void MakeNewSubscription(object obj)
@@ -76,19 +77,37 @@ namespace SportzMagazine.ViewModels
 
             if (string.IsNullOrEmpty(Name) || string.IsNullOrEmpty(Address) || string.IsNullOrEmpty(Email) ||
                 string.IsNullOrEmpty(Phone) || string.IsNullOrEmpty(Title) || string.IsNullOrEmpty(MailStop) ||
-                string.IsNullOrEmpty(CompanyDepartment) || NumberOfCopies == 0||string.IsNullOrEmpty(Password))
+                string.IsNullOrEmpty(CompanyDepartment) || NumberOfCopies == 0 || string.IsNullOrEmpty(Password))
             {
                 CheckInput();
             }
             else
             {
-                App2= appcatalog.CreateCorpApplicant(name, add, email, phone, title, mstop, cd,password);
-                Models.Subscription sub = subcatalog.CreatCorporateSubs(App2, nocopy, subdur);
+                App2 = appcatalog.CreateCorpApplicant(name, add, email, phone, title, mstop, cd,password);
+                Subscription sub = subcatalog.CreatCorporateSubs(App2, nocopy, subdur);
                 List.Add(sub);
-                facade.SaveSubscriptionAsXaml(List);
+                //facade.SaveSubscriptionAsXaml(List);
+                clean.SaveCorporate(List);
+                
 
             }
         }
+
+        public async void LoadDafaultData()
+        {
+            try
+            {
+                ObservableCollection<Subscription> subscriptions = await clean.LoadCorporate();
+                this.List = subscriptions;
+            }
+            catch (Exception exception)
+            {
+                list.Clear();
+
+            }
+        }
+
+
 
         public async void CheckInput()
         {

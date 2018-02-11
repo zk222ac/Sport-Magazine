@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,13 +10,13 @@ namespace SportzMagazine.Catalogs
 {
     public class ApplicantCatalog
     {
-        private List<Applicant> appList;
+        private ObservableCollection<Applicant> appList;
 
         // make a method to create induvidual Applicant
         public IndApplicant CreateIndApplicant(string n, string address, string email, string ph,  string cardH,
             string cardNo, DateTime expDate, int cvv, string password)
         {
-            appList = new List<Applicant>();
+            appList = new ObservableCollection<Applicant>();
             IndApplicant app1 = new IndApplicant
             {
                 Name = n,
@@ -38,7 +39,7 @@ namespace SportzMagazine.Catalogs
         public CorporApplicant CreateCorpApplicant(string n, string address, string email, string ph,  string title,
             string mailStop, string companyDep, string password)
         {
-            appList = new List<Applicant>();
+            appList = new ObservableCollection<Applicant>();
             CorporApplicant app2 = new CorporApplicant
             {
                 Name = n,
